@@ -186,7 +186,7 @@ TIMEOUT_SECONDS=45
 
 ---
 
-## 10. 测试与质量保证（可选）
+## 10. 测试与质量保证
 
 * 框架建议：`pytest` 进行规则命中率与回归测试。
 * 最小样例（示意）：
@@ -200,28 +200,6 @@ TIMEOUT_SECONDS=45
       assert "SEC.SQLI" in rules
       assert "BUG.FILE_NOT_CLOSED" in rules
   ```
-
----
-
-## 11. 部署与对接（可选）
-
-* **Docker**：
-
-  * `Dockerfile`（精简版）
-
-    ```dockerfile
-    FROM python:3.11-slim
-    WORKDIR /app
-    COPY requirements.txt .
-    RUN pip install --no-cache-dir -r requirements.txt
-    COPY app app
-    COPY web web
-    EXPOSE 8000
-    CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-    ```
-  * 运行：`docker build -t screview . && docker run --rm -p 8000:8000 --env-file .env screview`
-* **CI**（建议）：对 PR 调用 `/analyze` 并在注释中落地结论（GitHub Actions + job cache）。
-* **格式化/规范**：可添加 `ruff/black` 或 `pre-commit` 钩子。
 
 ---
 
